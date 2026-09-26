@@ -1,1 +1,8 @@
 requirements.pdf
+node_modules/
+.next/
+dist/
+.env*
+AGENTS.md
+CLAUDE.md
+.claude/
