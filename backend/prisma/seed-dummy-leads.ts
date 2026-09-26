@@ -10,15 +10,16 @@ const names = [
 ];
 
 const serviceTypes = await prisma.serviceType.findMany();
+let created = 0;
 
 for (const [i, name] of names.entries()) {
   const email = `${name.toLowerCase().replace(" ", ".")}@example.com`;
-  const services = serviceTypes.filter((_, s) => (i + s) % 2 === 0);
+  const existing = await prisma.lead.findUnique({ where: { emailNormalized: email } });
+  if (existing) continue;
 
-  await prisma.lead.upsert({
-    where: { emailNormalized: email },
-    update: {},
-    create: {
+  const services = serviceTypes.filter((_, s) => (i + s) % 2 === 0);
+  await prisma.lead.create({
+    data: {
       name,
       email,
       emailNormalized: email,
@@ -29,7 +30,8 @@ for (const [i, name] of names.entries()) {
       },
     },
   });
+  created += 1;
 }
 
-console.log(`Seeded ${names.length} dummy leads.`);
+console.log(`Created ${created} new dummy leads (${names.length - created} already existed and were left untouched).`);
 await prisma.$disconnect();

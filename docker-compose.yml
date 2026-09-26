@@ -16,5 +16,28 @@ services:
       timeout: 5s
       retries: 10
 
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgresql://brighte:brighte@db:5432/brighte_eats
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      API_URL: http://backend:4000/graphql
+    ports:
+      - "3000:3000"
+
 volumes:
   db-data:
