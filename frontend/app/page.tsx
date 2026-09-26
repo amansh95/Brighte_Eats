@@ -1,27 +1,17 @@
-const API_URL = process.env.API_URL ?? "http://localhost:4000/graphql";
+import { getServiceTypes } from "@/lib/api";
+import ServicePicker from "./components/ServicePicker";
 
 export const dynamic = "force-dynamic";
 
-async function getHello(): Promise<string> {
-  try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: "{ hello }" }),
-    });
-    const { data } = await res.json();
-    return data.hello;
-  } catch {
-    return "Could not reach the backend.";
-  }
-}
-
-export default async function Home() {
-  const hello = await getHello();
+export default async function ChooseServicesPage() {
+  const serviceTypes = await getServiceTypes();
 
   return (
-    <main>
-      <h1>{hello}</h1>
-    </main>
+    <div className="panel">
+      <p className="eyebrow">Brighte Eats is coming soon</p>
+      <h1 className="display">What are you interested in?</h1>
+      <p className="panel-intro">Choose one or more services, then continue to register your interest.</p>
+      <ServicePicker serviceTypes={serviceTypes} />
+    </div>
   );
 }

@@ -42,8 +42,8 @@ export type LeadsPage = {
 export class ApiError extends Error {
   constructor(
     message: string,
-    public code: "BAD_USER_INPUT" | "NOT_FOUND" | "NETWORK" | "INTERNAL",
-    public fieldErrors: Partial<Record<keyof RegisterInput, string>> = {},
+    public code: "BAD_USER_INPUT" | "NETWORK",
+    public fieldErrors: Record<string, string> = {},
   ) {
     super(message);
     this.name = "ApiError";
