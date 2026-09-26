@@ -9,7 +9,8 @@
     "start": "node --env-file-if-exists=.env dist/index.js",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx --env-file-if-exists=.env prisma/seed.ts",
-    "typecheck": "tsc --noEmit && tsc --noEmit --project prisma/tsconfig.json"
+    "typecheck": "tsc --noEmit && tsc --noEmit --project prisma/tsconfig.json",
+    "db:seed:dummy": "tsx --env-file-if-exists=.env prisma/seed-dummy-leads.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.0",
