@@ -35,6 +35,8 @@ This starts three containers: Postgres, the backend, and the frontend. The backe
 
 Stop everything with `Ctrl+C`, then `docker compose down`. Your data persists in a Docker volume between runs; add `-v` to `docker compose down` if you want a completely clean database next time.
 
+Run tests with `npm test` inside both `frontend` and `backend`.
+
 ## Why I chose [database / framework / frontend library]
 
 - PostgresQL - I was familiar with it and it's easy to use. Any relational database is fine.
