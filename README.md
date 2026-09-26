@@ -13,6 +13,8 @@ You only need Docker installed. Nothing else — no Node, no Postgres, no `npm i
   ```powershell
   winget install Docker.DockerDesktop
   ```
+  Or follow steps at https://docs.docker.com/desktop/setup/install/windows-install/
+
   Then launch Docker Desktop once from the Start menu so it finishes starting up.
 
 **Run the project**
@@ -23,15 +25,13 @@ cd "Brighte_Eats"
 ```
 
 - **macOS/Linux:** `./scripts/up.sh`
-- **Windows (PowerShell):** `./scripts/up.ps1`
+- **Windows (PowerShell):** `docker compose up --build`
 
 Either script frees ports 3000 and 4000 on your machine if something else is already using them, then runs `docker compose up --build`. If you'd rather run Compose directly and skip the port-clearing step, `docker compose up --build` works the same way.
 
 This starts three containers: Postgres, the backend, and the frontend. The backend automatically applies the database migration and seeds the three service types on startup — no manual setup step.
 
 - Frontend: http://localhost:3000
-- Backend GraphQL: http://localhost:4000/graphql
-- Backend REST: http://localhost:4000/leads
 
 Stop everything with `Ctrl+C`, then `docker compose down`. Your data persists in a Docker volume between runs; add `-v` to `docker compose down` if you want a completely clean database next time.
 
@@ -85,3 +85,4 @@ Stop everything with `Ctrl+C`, then `docker compose down`. Your data persists in
 - I described all the test cases and the bodies were filled by Claude
 - Script setup to clear ports so that apps can run uninterrupted
 - FE CSS
+- Windows deploy script since I do not have a windows machine
