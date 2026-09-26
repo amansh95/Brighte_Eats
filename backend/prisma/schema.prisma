@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ServiceType {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  label     String
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  leadServices LeadService[]
+
+  @@map("service_types")
+}
+
+model Lead {
+  id               String   @id @default(uuid())
+  name             String
+  email            String
+  emailNormalized  String   @unique @map("email_normalized")
+  mobile           String
+  postcode         String
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  services LeadService[]
+
+  @@index([createdAt(sort: Desc), id])
+  @@map("leads")
+}
+
+model LeadService {
+  leadId        String   @map("lead_id")
+  serviceTypeId Int      @map("service_type_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  lead        Lead        @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  serviceType ServiceType @relation(fields: [serviceTypeId], references: [id])
+
+  @@id([leadId, serviceTypeId])
+  @@index([serviceTypeId, leadId])
+  @@map("lead_services")
+}
