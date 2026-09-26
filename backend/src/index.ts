@@ -9,7 +9,7 @@ const schema = createSchema({
   `,
   resolvers: {
     Query: {
-      hello: () => "Hello from Brighte Eats!",
+      hello: () => "Hello from Brighte Eats!!",
     },
   },
 });
