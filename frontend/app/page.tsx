@@ -1,6 +1,5 @@
 const API_URL = process.env.API_URL ?? "http://localhost:4000/graphql";
 
-// Render on every request so the page always shows what the backend returns.
 export const dynamic = "force-dynamic";
 
 async function getHello(): Promise<string> {
