@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
 import NavLink from "./components/NavLink";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
-const outfit = Outfit({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   title: "Brighte Eats",
@@ -17,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+    <html lang="en">
       <body>
         <header className="site-header">
           <div className="container header-inner">
