@@ -27,7 +27,7 @@ cd "Brighte_Eats"
 - **macOS/Linux:** `./scripts/up.sh`
 - **Windows (PowerShell):** `docker compose up --build`
 
-Either script frees ports 3000 and 4000 on your machine if something else is already using them, then runs `docker compose up --build`. If you'd rather run Compose directly and skip the port-clearing step, `docker compose up --build` works the same way.
+macOS script frees ports 3000 and 4000 on your machine if something else is already using them, then runs `docker compose up --build`. If you'd rather run Compose directly and skip the port-clearing step, `docker compose up --build` works the same way.
 
 This starts three containers: Postgres, the backend, and the frontend. The backend automatically applies the database migration and seeds the three service types on startup — no manual setup step.
 
@@ -37,7 +37,7 @@ Stop everything with `Ctrl+C`, then `docker compose down`. Your data persists in
 
 Run tests with `npm test` inside both `frontend` and `backend`.
 
-## Why I chose [database / framework / frontend library]
+## Why I chose this stack
 
 - PostgresQL - I was familiar with it and it's easy to use. Any relational database is fine.
 - Prisma ORM - I've used it previously and its one of the most supported ones out there
