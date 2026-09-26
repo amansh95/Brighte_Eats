@@ -1,6 +1,6 @@
 ## How to run
 
-You only need Docker installed. Nothing else — no Node, no Postgres, no `npm install`.
+You only need Docker installed.
 
 **Install Docker**
 
