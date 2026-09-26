@@ -70,9 +70,7 @@ export function getLeads({
 
 export function getLead(id: string): Promise<Lead> {
   return mockCall(() => {
-    const lead = leads.find((l) => l.id === id);
-    if (!lead) throw new ApiError("Lead not found.", "NOT_FOUND");
-    return lead;
+    return leads.find((l) => l.id === id)!;
   });
 }
 
