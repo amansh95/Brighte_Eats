@@ -71,9 +71,6 @@ export default function RegisterForm({ serviceTypes }: { serviceTypes: ServiceTy
           <Link href="/" className="button">
             Register someone else
           </Link>
-          <Link href="/leads" className="button button-secondary">
-            View leads
-          </Link>
         </div>
       </div>
     );
