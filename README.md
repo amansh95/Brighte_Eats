@@ -63,11 +63,19 @@ Stop everything with `Ctrl+C`, then `docker compose down`. Your data persists in
 
 ## What I'd change at 10x scale
 
-TODO
+- **Caching the service types:** `serviceTypes` barely ever changes but is queried on every registration and every dashboard load. I'd cache it in memory or Redis with a short TTL instead of hitting Postgres each time.
+- **Connection pooling:** a single Postgres instance with each backend replica opening its own connections doesn't scale past a handful of instances. I'd a DB pooling in front of it, and add a read replica for the dashboard's read-heavy `leads` query.
+- **Horizontal scaling the backend:** it's already stateless, so running several replicas behind a load balancer is straightforward — Postgres would become the bottleneck first, which the two points above address.
+- **Rate limiting `register`:** nothing stops one client from submitting repeatedly right now; the brief calls this out as an optional stretch goal, and at real scale it stops being optional.
+- **Observability:** there's no structured observability in the form of logging, error tracking, or query performance monitoring. At 10x traffic, finding a slow query or a spike in failed registrations would mean guessing. There is also no alerting which is needed for prod.
 
 ## TODOs / known gaps
 
-TODO
+- **`register`'s validation stops at the first invalid field** instead of reporting all of them at once, so a request with three bad fields only ever tells you about one.
+- **Validation logic is duplicated, not shared,** between `frontend/lib/validation.ts` and `backend/src/validation.ts`. They currently agree, but nothing enforces that — a rule change in one won't be caught by the other.
+- **An unrecognized service code is silently dropped**, not rejected, by the `register` mutation. That's a deliberate choice for a changing list of service types, but it does mean a typo in a service code fails silently rather than with an error.
+- **No frontend tests yet** — only the backend has an automated suite. The form's error-on-API-failure case from the brief has been checked manually, not automated.
+- **No CI.** Tests only run locally; nothing runs them automatically on push.
 
 ## AI Assistance
 
@@ -75,4 +83,5 @@ TODO
 - Writing seed and dummy data scripts
 - A lot of help with GraphQL as I am unfamiliar with it
 - I described all the test cases and the bodies were filled by Claude
-- Docker setup to clear ports so that apps can run uninterrupted
+- Script setup to clear ports so that apps can run uninterrupted
+- FE CSS
