@@ -9,8 +9,9 @@
     "start": "node --env-file-if-exists=.env dist/index.js",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx --env-file-if-exists=.env prisma/seed.ts",
-    "typecheck": "tsc --noEmit && tsc --noEmit --project prisma/tsconfig.json",
-    "db:seed:dummy": "tsx --env-file-if-exists=.env prisma/seed-dummy-leads.ts"
+    "typecheck": "tsc --noEmit && tsc --noEmit --project prisma/tsconfig.json && tsc --noEmit --project test/tsconfig.json",
+    "db:seed:dummy": "tsx --env-file-if-exists=.env prisma/seed-dummy-leads.ts",
+    "test": "mocha"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.0",
@@ -20,9 +21,13 @@
     "pg": "8.23.0"
   },
   "devDependencies": {
+    "@types/chai": "5.2.3",
+    "@types/mocha": "10.0.10",
     "@types/node": "^26.6.3",
     "@types/pg": "8.23.1",
+    "chai": "6.2.2",
     "dotenv": "18.0.4",
+    "mocha": "12.0.2",
     "prisma": "7.10.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"

@@ -1,0 +1,6 @@
+{
+  "extension": ["ts"],
+  "spec": "test/**/*.test.ts",
+  "node-option": ["import=tsx/esm", "env-file-if-exists=.env.test"],
+  "timeout": 10000
+}
