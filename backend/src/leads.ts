@@ -1,4 +1,5 @@
 import { prisma } from "./prisma.js";
+import { assertValidRegisterInput } from "./validation.js";
 
 export type LeadSortField = "CREATED_AT" | "NAME";
 export type SortDirection = "ASC" | "DESC";
@@ -77,6 +78,8 @@ export async function registerLead(input: {
   postcode: string;
   services: string[];
 }) {
+  assertValidRegisterInput(input);
+
   const { name, email, mobile, postcode, services } = input;
   const emailNormalized = email.trim().toLowerCase();
 

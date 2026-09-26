@@ -71,6 +71,24 @@ describe("API (integration)", () => {
         expect(result.body.data).to.equal(undefined);
       });
     });
+
+    describe("GIVEN the request has an invalid mobile number", () => {
+      let result: Awaited<ReturnType<typeof graphql>>;
+
+      before(async () => {
+        result = await graphql(REGISTER_MUTATION, {
+          input: { name: "Bad Phone", email: "badphone@example.com", mobile: "22abssss", postcode: "2000", services: ["delivery"] },
+        });
+      });
+
+      it("returns a GraphQL error", () => {
+        expect(result.body.errors).to.exist;
+      });
+
+      it("returns null data", () => {
+        expect(result.body.data).to.equal(null);
+      });
+    });
   });
 
   describe("GET /leads", () => {

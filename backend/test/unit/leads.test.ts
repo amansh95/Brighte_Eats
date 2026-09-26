@@ -111,6 +111,35 @@ describe("leads (unit)", () => {
           expect(lead.services).to.deep.equal([]);
         });
       });
+
+      describe("GIVEN the request has an invalid mobile number", () => {
+        let error: unknown;
+
+        before(async () => {
+          try {
+            await registerLead({
+              name: "Bad Phone",
+              email: "badphone@example.com",
+              mobile: "22abssss",
+              postcode: "2000",
+              services: ["delivery"],
+            });
+          } catch (e) {
+            error = e;
+          }
+        });
+
+        after(clearLeads);
+
+        it("rejects the request", () => {
+          expect(error).to.be.instanceOf(Error);
+        });
+
+        it("does not create a lead", async () => {
+          const leads = await prisma.lead.findMany({ where: { email: "badphone@example.com" } });
+          expect(leads).to.deep.equal([]);
+        });
+      });
     });
   });
 
