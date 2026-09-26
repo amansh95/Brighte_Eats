@@ -19,7 +19,7 @@ You only need Docker installed. Nothing else — no Node, no Postgres, no `npm i
 
 ```bash
 git clone <this repo>
-cd "Brighte Eats"
+cd "Brighte_Eats"
 ```
 
 - **macOS/Linux:** `./scripts/up.sh`
