@@ -232,6 +232,7 @@ describe("leads (unit)", () => {
       });
 
       it("returns the seeded codes", () => {
+        // @ts-ignore
         expect(types.map((t) => t.code)).to.include.members(["delivery", "pick-up", "payment"]);
       });
     });
